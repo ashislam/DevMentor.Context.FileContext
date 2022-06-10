@@ -13,7 +13,7 @@ namespace DemoConsole
     {
         static void Main(string[] args)
         {
-            var unit = new UnitOfWork(new Context(new JsonStoreStrategy())); //new Context(new InMemoryStoreStrategy())
+            var unit = new UnitOfWork(new Context()); //new Context(new InMemoryStoreStrategy())
             //INSERT
             Console.WriteLine("INSERT PAUL");
             unit.UserRepository.Insert(new User()
@@ -68,15 +68,15 @@ namespace DemoConsole
                 Console.WriteLine("{0} {1} ({2})", user.FirstName, user.LastName, user.UserName);
             }
 
-            ////DELETE ALL
-            //Console.WriteLine("DELETE ALL");
-            //unit.UserRepository.Delete(unit.UserRepository.Get());
-            //users = unit.UserRepository.Get();
-            //foreach (var user in users)
-            //{
-            //    Console.WriteLine("{0} {1} ({2})", user.FirstName, user.LastName, user.UserName);
-            //}
-            //unit.Save();
+            //DELETE ALL
+            Console.WriteLine("DELETE ALL");
+            unit.UserRepository.Delete(unit.UserRepository.Get());
+            users = unit.UserRepository.Get();
+            foreach (var user in users)
+            {
+                Console.WriteLine("{0} {1} ({2})", user.FirstName, user.LastName, user.UserName);
+            }
+            unit.Save();
 
             Console.ReadKey();
         }
